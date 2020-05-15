@@ -3,6 +3,8 @@
 import grpc
 from grpc_proto import helloworld_pb2
 from grpc_proto import helloworld_pb2_grpc
+from grpc_proto import myworld_pb2
+from grpc_proto import myworld_pb2_grpc
 
 
 def run():
@@ -14,6 +16,10 @@ def run():
     print("Greeter client received: " + response.message)
     response = stub.SayHelloAgain(helloworld_pb2.HelloRequest(name='daydaygo'))
     print("Greeter client received: " + response.message)
+
+    stub2 = myworld_pb2_grpc.MyGreeterStub(channel)
+    response = stub2.DoSomething(myworld_pb2.SomeRequest(name='abcd'))
+    print("MyGreeter client received: " + response.message)
 
 
 if __name__ == '__main__':
